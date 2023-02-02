@@ -13,12 +13,10 @@ namespace import.Loaders
     /// public interface (Process) that contains the order that the operations 
     /// will be carried out.
     /// </summary>
-    public class CapterraLoader : BaseLoader<CapterraLoader>, ILoader
+    public class CapterraLoader : BaseLoader<CapterraLoader>, ICapterraLoader
     {
-        public CapterraLoader(IRepository repository, ILogger<CapterraLoader> logger, 
-            string fileContents,
-            string name, string description)
-            : base(repository, logger, fileContents, name, description)
+        public CapterraLoader(IRepository repository, ILogger<CapterraLoader> logger)
+            : base(repository, logger)
         {
         }
 

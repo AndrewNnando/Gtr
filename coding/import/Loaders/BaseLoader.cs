@@ -1,5 +1,6 @@
 ﻿using import.Interfaces;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,17 +19,19 @@ namespace import.Loaders
     {
         protected readonly IRepository _repository;
         protected readonly ILogger<T> _logger;
-        protected readonly string fileContents;
-        protected readonly string name;
-        protected readonly string description;
+        protected  string fileContents;
+        protected  string name;
+        protected  string description;
         
         public object Loaded { get ; protected set ; }
         public IInventory Converted { get; protected set; }
 
-        protected BaseLoader(IRepository repository, ILogger<T> logger, 
-            string contents,
-            string name,
-            string description)
+        protected BaseLoader(IRepository repository, ILogger<T> logger)
+        {
+            _repository = repository;
+            _logger = logger;
+        }
+        public void Process(string contents, string name, string description)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentNullException("name");
@@ -36,15 +39,10 @@ namespace import.Loaders
             if (string.IsNullOrWhiteSpace(contents))
                 throw new ArgumentNullException("contents");
 
-            _repository = repository;
-            _logger = logger;
-            fileContents = contents;
+            this.fileContents = contents;
             this.name = name;
             this.description = description;
-        }
-        public void Process()
-        {
-            
+
             Load();
             Convert();
             Save();

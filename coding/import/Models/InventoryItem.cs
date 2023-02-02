@@ -13,5 +13,15 @@ namespace import.Models
         public string Name { get; set; }
         public string Twitter { get; set; }
 
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append($"Name: {Name}; Categories: ");
+            sb.Append($"{String.Join(',', Categories)}");
+            if (!string.IsNullOrWhiteSpace(Twitter))
+                sb.Append($"; Twitter: @{Twitter}");
+            return
+                sb.ToString();
+        }
     }
 }

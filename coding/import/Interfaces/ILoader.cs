@@ -8,8 +8,10 @@ namespace import.Interfaces
 {
     public interface ILoader
     {
-        void Process();
+        void Process(string fileContents,string name, string description);
         object Loaded { get;  }
         IInventory Converted { get; }
     }
+
+    public interface ICapterraLoader : ILoader { }
 }

@@ -9,22 +9,24 @@ namespace import.Tests.UnitTests.Loaders
     public class CapterraLoaderTests
     {
         /*********************
-         * Constructor Tests
+         * Process Method Tests
          *********************/
 
         [Theory]
         [InlineData("")]
         [InlineData("   ")]
         [InlineData(null)]
-        public void Constructor_MissingName_ThrowsArgumentNullException(string? name)
+        public void Process_MissingName_ThrowsArgumentNullException(string? name)
         {
             // Arrange
             var stubRepo = new Mock<IRepository>();
             var stubLogger = new Mock<ILogger<CapterraLoader>>();
             var fileContents = GetYamlData();
+            ICapterraLoader loader = new CapterraLoader(stubRepo.Object, stubLogger.Object);
+
             // Act and Assert
             var result = Assert.Throws<ArgumentNullException>(() =>
-            new CapterraLoader(stubRepo.Object, stubLogger.Object, fileContents, name, "description"));
+            loader.Process( fileContents, name, "description"));
 
             Assert.Equal("name", result.ParamName);
         }
@@ -33,15 +35,16 @@ namespace import.Tests.UnitTests.Loaders
         [InlineData("")]
         [InlineData("   ")]
         [InlineData(null)]
-        public void Constructor_EmptyContents_ThrowsArgumentNullException(string? fileContents)
+        public void Process_EmptyContents_ThrowsArgumentNullException(string? fileContents)
         {
             // Arrange
             var stubRepo = new Mock<IRepository>();
             var stubLogger = new Mock<ILogger<CapterraLoader>>();
+            ICapterraLoader loader = new CapterraLoader(stubRepo.Object, stubLogger.Object);
 
             // Act and Assert 
             var result = Assert.Throws<ArgumentNullException>(() =>
-            new CapterraLoader(stubRepo.Object, stubLogger.Object, fileContents, "name", "description"));
+            loader.Process(fileContents, "name", "description"));
 
             Assert.Equal("contents", result.ParamName);
         }
@@ -57,12 +60,10 @@ namespace import.Tests.UnitTests.Loaders
             // Arrange
             var stubRepo = new Mock<IRepository>();
             var stubLogger = new Mock<ILogger<CapterraLoader>>();
+            var loader = new CapterraLoader(stubRepo.Object, stubLogger.Object);
 
-            // Act
-            var loader = new CapterraLoader(stubRepo.Object, stubLogger.Object, fileContents, "name", "description");
-
-            // Assert 
-            var result = Assert.Throws<Exception>(() => loader.Process());
+            // Act and Assert 
+            var result = Assert.Throws<Exception>(() => loader.Process(fileContents, "name", "description"));
 
             Assert.Equal("The file contents could not be deserialized.", result.Message);
             Assert.Null(loader.Loaded);
@@ -74,12 +75,10 @@ namespace import.Tests.UnitTests.Loaders
             // Arrange
             var stubRepo = new Mock<IRepository>();
             var stubLogger = new Mock<ILogger<CapterraLoader>>();
+            var loader = new CapterraLoader(stubRepo.Object, stubLogger.Object);
 
-            // Act
-            var loader = new CapterraLoader(stubRepo.Object, stubLogger.Object, fileContents, "name", "description");
-
-            // Assert 
-            var result = Assert.Throws<NullReferenceException>(() => loader.Process());
+            // Act and Assert 
+            var result = Assert.Throws<NullReferenceException>(() => loader.Process(fileContents, "name", "description"));
         }
 
 
@@ -90,10 +89,10 @@ namespace import.Tests.UnitTests.Loaders
             var stubRepo = new Mock<IRepository>();
             var stubLogger = new Mock<ILogger<CapterraLoader>>();
             var fileContents = GetYamlData();
+            var loader = new CapterraLoader(stubRepo.Object, stubLogger.Object);
 
-            // Act
-            var loader = new CapterraLoader(stubRepo.Object, stubLogger.Object, fileContents, "name", "description");
-            loader.Process();
+            // Act            
+            loader.Process(fileContents, "name", "description");
 
             // Assert 
             Assert.NotNull(loader.Loaded);
@@ -109,10 +108,10 @@ namespace import.Tests.UnitTests.Loaders
             mockRepo.Setup(repo => repo.SaveAsync(It.IsNotNull<IInventory>()));                        
             var stubLogger = new Mock<ILogger<CapterraLoader>>();
             var fileContents = GetYamlData();
+            var loader = new CapterraLoader(mockRepo.Object, stubLogger.Object);
 
             // Act
-            var loader = new CapterraLoader(mockRepo.Object, stubLogger.Object, fileContents, "name", "description");
-            loader.Process();
+            loader.Process(fileContents, "name", "description");
 
             // Assert 
 
