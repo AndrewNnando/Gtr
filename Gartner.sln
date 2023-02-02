@@ -12,7 +12,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "coding", "coding", "{08C3A8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "import", "coding\import\import.csproj", "{58462D01-D29A-431A-86A8-6EE5DD187541}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "import.Tests", "coding\import.Tests\import.Tests.csproj", "{6BD311E2-DECA-442F-ACDB-CA10F6477A25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "import.Tests", "coding\import.Tests\import.Tests.csproj", "{6BD311E2-DECA-442F-ACDB-CA10F6477A25}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{53D21943-A775-443F-AD85-ED80AD17B81A}"
+	ProjectSection(SolutionItems) = preProject
+		database\README.md = database\README.md
+		database\script.sql = database\script.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
