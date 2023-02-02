@@ -14,4 +14,6 @@ namespace import.Interfaces
     }
 
     public interface ICapterraLoader : ILoader { }
+
+    public interface ISoftwareAdviceLoader : ILoader { }
 }

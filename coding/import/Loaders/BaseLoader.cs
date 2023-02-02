@@ -43,14 +43,31 @@ namespace import.Loaders
             this.name = name;
             this.description = description;
 
-            Load();
-            Convert();
+            LoadData();
+            ConvertData();
             Save();
         }
 
-        protected abstract void Load();
-        protected abstract void Convert();
-        protected abstract void Save();
+        protected abstract object Load();
+        protected abstract IInventory Convert();
+
+        void LoadData()
+        {
+            Loaded = Load();
+        }
+        void ConvertData()
+        {
+            Converted = Convert();
+        }
+
+        async void Save()
+        {
+            await SaveAsync(Converted);
+        }
+        async Task SaveAsync(IInventory output)
+        {
+            await _repository.SaveAsync(output);
+        }
 
     }
 }

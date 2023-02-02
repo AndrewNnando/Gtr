@@ -20,6 +20,7 @@ class Program
         rootCommand.Description = "SaaS Products Import Tool";
 
         rootCommand.AddCommand(serviceProvider.GetRequiredService<CapterraCommand>());
+        rootCommand.AddCommand(serviceProvider.GetRequiredService<SoftwareAdviceCommand>());
 
         await rootCommand.InvokeAsync(args);
     }
@@ -31,6 +32,8 @@ class Program
         serviceCollection.AddSingleton<RootCommand>();
         serviceCollection.AddSingleton<CapterraCommand>();
         serviceCollection.AddSingleton<ICapterraLoader, CapterraLoader>();
+        serviceCollection.AddSingleton<SoftwareAdviceCommand>();
+        serviceCollection.AddSingleton<ISoftwareAdviceLoader, SoftwareAdviceLoader>();
         serviceCollection.AddSingleton<IRepository, InventoryRepository>();
 
     }

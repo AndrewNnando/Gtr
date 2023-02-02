@@ -125,4 +125,12 @@
     <value>capterra</value>
     <comment>The name of the command.</comment>
   </data>
+  <data name="SoftwareAdviceCommand_Description" xml:space="preserve">
+    <value>SoftwareAdvice inventory list import</value>
+    <comment>The description of the command that is shown in help.</comment>
+  </data>
+  <data name="SoftwareAdviceCommand_Name" xml:space="preserve">
+    <value>softwareadvice</value>
+    <comment>The name of the command.</comment>
+  </data>
 </root>

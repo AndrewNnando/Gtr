@@ -77,5 +77,23 @@ namespace import {
                 return ResourceManager.GetString("CapterraCommand_Name", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SoftwareAdvice inventory list import.
+        /// </summary>
+        internal static string SoftwareAdviceCommand_Description {
+            get {
+                return ResourceManager.GetString("SoftwareAdviceCommand_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to softwareadvice.
+        /// </summary>
+        internal static string SoftwareAdviceCommand_Name {
+            get {
+                return ResourceManager.GetString("SoftwareAdviceCommand_Name", resourceCulture);
+            }
+        }
     }
 }

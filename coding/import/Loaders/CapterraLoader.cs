@@ -20,26 +20,26 @@ namespace import.Loaders
         {
         }
 
-        protected override void Load()
+        protected override object Load()
         {
             var deserializer = new Deserializer();
             var table = deserializer.Deserialize<List<Hashtable>>(new StringReader(fileContents));
             if (table == null)
                 throw new Exception("The file contents could not be deserialized.");
-            Loaded = table;
+            return table;
         }
 
-        protected override void Convert()
+        protected override IInventory Convert()
         {
             var inventory = new Inventory(name,description);
             foreach (var item in (List<Hashtable>)Loaded)
             {
                 inventory.Items.Add(Convert(item));
             }
-            Converted = inventory;
+            return inventory;
         }
 
-        public static IInventoryItem Convert(Hashtable table)
+         IInventoryItem Convert(Hashtable table)
         {
             IInventoryItem item = new InventoryItem();
             foreach (DictionaryEntry entry in table)
@@ -62,13 +62,5 @@ namespace import.Loaders
             return item;
         }
 
-        protected override async void Save()
-        {
-            await SaveAsync(Converted);
-        }
-        async Task SaveAsync(IInventory output)
-        {
-            await _repository.SaveAsync(output);
-        }
     }
 }
