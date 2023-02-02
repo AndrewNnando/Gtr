@@ -15,7 +15,6 @@
     * [Loaders](#loaders)
     * [Commands](#commands)
 - [Test Project](#test-project)
-- [Reflections](#reflections)
 
 # Getting Started
 
