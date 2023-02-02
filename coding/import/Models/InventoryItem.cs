@@ -1,9 +1,5 @@
 ﻿using import.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace import.Models
 {
@@ -16,10 +12,15 @@ namespace import.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append($"Name: {Name}; Categories: ");
+            sb.Append($"Name: \"{Name}\"; Categories: ");
             sb.Append($"{String.Join(',', Categories)}");
             if (!string.IsNullOrWhiteSpace(Twitter))
-                sb.Append($"; Twitter: @{Twitter}");
+            {
+                var tw = Twitter.First() == '@'
+                    ? $"; Twitter: {Twitter}"
+                    : $"; Twitter: @{Twitter}";
+                sb.Append(tw);
+            }
             return
                 sb.ToString();
         }
