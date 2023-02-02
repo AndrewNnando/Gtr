@@ -31,3 +31,8 @@ The dependency injection library can be installed within Visual Studio, using th
 
 >dotnet add package Microsoft.Extensions.DependencyInjection -f net6.0
 
+## Logging
+
+Logs will be created using the .NET logging API. 
+
+>dotnet add package Microsoft.Extensions.Logging.Abstractions -f net6.0
