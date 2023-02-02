@@ -19,11 +19,11 @@ namespace import.Loaders
     {
         protected readonly IRepository _repository;
         protected readonly ILogger<T> _logger;
-        protected  string fileContents;
-        protected  string name;
-        protected  string description;
-        
-        public object Loaded { get ; protected set ; }
+        protected string fileContents;
+        protected string name;
+        protected string description;
+
+        public object Loaded { get; protected set; }
         public IInventory Converted { get; protected set; }
 
         protected BaseLoader(IRepository repository, ILogger<T> logger)

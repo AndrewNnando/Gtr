@@ -3,6 +3,7 @@ using import.Loaders;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System.Xml.Linq;
+using YamlDotNet.Core;
 
 namespace import.Tests.UnitTests.Loaders
 {
@@ -54,22 +55,19 @@ namespace import.Tests.UnitTests.Loaders
          *********************/
 
         [Theory]
-        [InlineData(@"---")]
-        public void Process_InvalidYaml_ThrowsException(string fileContents)
+        [InlineData("{\r\n    \"products\": [\r\n        {\r\n            \"categories\": [\r\n                \"Customer Service\",\r\n                \"Call Center\"\r\n            ],\r\n            \"twitter\": \"@freshdesk\",\r\n            \"title\": \"Freshdesk\"\r\n        },\r\n        {\r\n            \"categories\": [\r\n                \"CRM\",\r\n                \"Sales Management\"\r\n            ],\r\n            \"title\": \"Zoho\"\r\n        }\r\n    ]\r\n}\r\n")]
+        public void Process_InvalidYaml_ThrowsYamlException(string fileContents)
         {
-            // Arrange
             var stubRepo = new Mock<IRepository>();
             var stubLogger = new Mock<ILogger<CapterraLoader>>();
             var loader = new CapterraLoader(stubRepo.Object, stubLogger.Object);
 
             // Act and Assert 
-            var result = Assert.Throws<Exception>(() => loader.Process(fileContents, "name", "description"));
-
-            Assert.Equal("The file contents could not be deserialized.", result.Message);
-            Assert.Null(loader.Loaded);
+            var result = Assert.Throws<YamlException>(() => loader.Process(fileContents, "name", "description"));
         }
         [Theory]
         [InlineData(@"-")]
+        [InlineData(@"---")]
         public void Process_InvalidYaml_ThrowsNullReferenceException(string fileContents)
         {
             // Arrange
@@ -80,7 +78,6 @@ namespace import.Tests.UnitTests.Loaders
             // Act and Assert 
             var result = Assert.Throws<NullReferenceException>(() => loader.Process(fileContents, "name", "description"));
         }
-
 
         [Fact]
         public void Process_ValidYaml_ConvertsCorrectNumberOfItems()
@@ -127,6 +124,12 @@ namespace import.Tests.UnitTests.Loaders
             return
                 "---\r\n-\r\n  tags: \"Bugs & Issue Tracking,Development Tools\"\r\n  name: \"GitGHub\"\r\n  twitter: \"github\"\r\n-\r\n  tags: \"Instant Messaging & Chat,Web Collaboration,Productivity\"\r\n  name: \"Slack\"\r\n  twitter: \"slackhq\"\r\n-\r\n  tags: \"Project Management,Project Collaboration,Development Tools\"\r\n  name: \"JIRA Software\"\r\n  twitter: \"jira\"\r\n";
         }
+
+        string GetJsonData()
+        {
+            return "{\r\n    \"products\": [\r\n        {\r\n            \"categories\": [\r\n                \"Customer Service\",\r\n                \"Call Center\"\r\n            ],\r\n            \"twitter\": \"@freshdesk\",\r\n            \"title\": \"Freshdesk\"\r\n        },\r\n        {\r\n            \"categories\": [\r\n                \"CRM\",\r\n                \"Sales Management\"\r\n            ],\r\n            \"title\": \"Zoho\"\r\n        }\r\n    ]\r\n}\r\n";
+        }
+
 
     }
 }

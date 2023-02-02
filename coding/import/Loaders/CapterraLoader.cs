@@ -24,8 +24,6 @@ namespace import.Loaders
         {
             var deserializer = new Deserializer();
             var table = deserializer.Deserialize<List<Hashtable>>(new StringReader(fileContents));
-            if (table == null)
-                throw new Exception("The file contents could not be deserialized.");
             return table;
         }
 

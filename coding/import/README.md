@@ -36,3 +36,32 @@ The dependency injection library can be installed within Visual Studio, using th
 Logs will be created using the .NET logging API. 
 
 >dotnet add package Microsoft.Extensions.Logging.Abstractions -f net6.0
+>dotnet add package Microsoft.Extensions.Logging -f net6.0
+
+## JSON
+Microsoft's System.Text.Json namespace has been used in preference to the NewtonSoft libraries. No particular reason, it is simple and does what is needed.
+
+## YAML
+The YamlDotNet library has been used to deserialize the capterra file. This is a supported library downloaded from NuGet. However, this NuGet package is an older version. GitHub has the most recent changes.
+
+# Installation
+Download the source code from [GitHub](https://github.com/AndrewNnando/Gartner) and compile.
+
+## Publish
+
+From within Visual Studio:
+
+* Right-click on the **import** project and select Publish.
+* Select the path to where you wish to publish.
+* Follow the instructions
+
+From the command prompt:
+
+>dotnet publish -o _foldername_
+
+>cd _foldername_
+
+>import capterra _file_
+
+
+Note, _file_ should include the full or relative folder path if it is not in the current folder.
